@@ -1,0 +1,19 @@
+. config.sh
+cd $SRCROOT
+tar -xf bzip2-1.0.6.tar.gz
+cd bzip2-1.0.6
+
+sed -i 's@\(ln -s -f \)$(PREFIX)/bin/@\1@' Makefile
+
+make CC="gcc -m32" BIGFILES="" -f Makefile-libbz2_so
+make clean
+
+make CC="gcc -m32" \
+     BIGFILES=""
+
+make PREFIX=$PWD/DESTDIR/usr install
+cp -Rv DESTDIR/usr/lib/* /usr/lib32
+cp -av libbz2.so* /usr/lib32
+
+cd $SRCROOT
+rm -rf bzip2-1.0.6

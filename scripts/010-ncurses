@@ -1,0 +1,44 @@
+. config.sh
+cd $SRCROOT
+tar -xf ncurses-6.1.tar.gz
+cd ncurses-6.1
+
+
+sed -i '/LIBTOOL_INSTALL/d' c++/Makefile.in
+
+CC="gcc -m32" CXX="g++ -m32"  \
+    ./configure --prefix=/usr \
+    --libdir=/usr/lib32       \
+    --mandir=/usr/share/man   \
+    --with-shared             \
+    --without-debug           \
+    --without-normal          \
+    --enable-pc-files         \
+    --enable-widec
+
+make
+
+make DESTDIR=$PWD/DESTDIR install
+for lib in ncurses form panel menu ; do
+    rm -vf                    DESTDIR/usr/lib32/lib${lib}.so
+    echo "INPUT(-l${lib}w)" > DESTDIR/usr/lib32/lib${lib}.so
+done
+rm -vf                     DESTDIR/usr/lib32/libcursesw.so
+echo "INPUT(-lncursesw)" > DESTDIR/usr/lib32/libcursesw.so
+ln -sfv libncurses.so      DESTDIR/usr/lib32/libcurses.so
+cp -Rv DESTDIR/usr/lib32/* /usr/lib32
+
+make distclean
+CC="gcc -m32" CXX="g++ -m32"  \
+    ./configure --prefix=/usr \
+    --with-shared             \
+    --without-normal          \
+    --without-debug           \
+    --without-cxx-binding     \
+    --with-abi-version=5 
+make sources libs
+cp -av lib/lib*.so.5* /usr/lib32
+
+
+cd $SRCROOT
+rm -rf ncurses-6.1

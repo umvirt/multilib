@@ -1,0 +1,47 @@
+. config.sh
+cd $SRCROOT
+tar -xf gcc-8.2.0.tar.xz
+cd gcc-8.2.0
+
+sed -e '/m64=/s/lib64/lib/' \
+    -i.orig gcc/config/i386/t-linux64
+
+tar -xf ../mpfr-4.0.1.tar.xz
+mv -v mpfr-4.0.1 mpfr
+tar -xf ../gmp-6.1.2.tar.xz
+mv -v gmp-6.1.2 gmp
+tar -xf ../mpc-1.1.0.tar.gz
+mv -v mpc-1.1.0 mpc
+
+mkdir -v build
+cd       build
+
+../configure                           \
+    --target=x86_64-unknown-linux-gnu  \
+    --prefix=/opt/temptools            \
+    --disable-nls                      \
+    --disable-shared                   \
+    --disable-decimal-float            \
+    --disable-threads                  \
+    --disable-libatomic                \
+    --disable-libgomp                  \
+    --disable-libmpx                   \
+    --disable-libquadmath              \
+    --disable-libssp                   \
+    --disable-libvtv                   \
+    --disable-libstdcxx                \
+    --enable-languages=c,c++           \
+    --with-glibc-version=2.11          \
+    --with-slibdir=/opt/temptools/lib  \
+    --with-sysroot=/opt/temptools      \
+    --with-newlib                      \
+    --without-headers                  \
+    --with-local-prefix=/opt/temptools \
+    --with-multilib-list=m32,m64,mx32  \
+    --with-native-system-header-dir=/opt/temptools/include
+
+make
+make install
+
+cd $SRCROOT
+rm -rf gcc-8.2.0

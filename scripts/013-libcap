@@ -1,0 +1,14 @@
+. config.sh
+cd $SRCROOT
+tar -xf libcap-2.25.tar.xz
+cd libcap-2.25
+
+sed -i '/install.*STALIBNAME/d' libcap/Makefile
+
+make CC="gcc -m32"
+
+make lib=lib32 prefix=$PWD/DESTDIR/usr -C libcap install
+cp -Rv DESTDIR/usr/lib32/* /usr/lib32
+
+cd $SRCROOT
+rm -rf libcap-2.25

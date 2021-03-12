@@ -1,0 +1,21 @@
+. config.sh
+cd $SRCROOT
+tar -xf kmod-25.tar.xz
+cd kmod-25
+
+CC="gcc -m32" ./configure \
+    --prefix=/usr         \
+    --bindir=/bin         \
+    --libdir=/usr/lib32   \
+    --sysconfdir=/etc     \
+    --with-xz             \
+    --with-zlib           \
+    --with-rootlibdir=/usr/lib32
+
+make
+
+make DESTDIR=$PWD/DESTDIR install
+cp -Rv DESTDIR/usr/lib32/* /usr/lib32
+
+cd $SRCROOT
+rm -rf kmod-25

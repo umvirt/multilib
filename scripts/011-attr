@@ -1,0 +1,21 @@
+. config.sh
+cd $SRCROOT
+tar -xf attr-2.4.48.tar.gz
+cd attr-2.4.48
+
+
+
+CC="gcc -m32" ./configure \
+    --prefix=/usr         \
+    --disable-static      \
+    --sysconfdir=/etc     \
+    --libdir=/usr/lib32
+
+make
+
+make DESTDIR=$PWD/DESTDIR install
+cp -Rv DESTDIR/usr/lib32/* /usr/lib32
+
+
+cd $SRCROOT
+rm -rf attr-2.4.48

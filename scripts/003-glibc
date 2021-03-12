@@ -1,0 +1,44 @@
+. config.sh
+cd $SRCROOT
+tar -xf glibc-2.28.tar.xz
+cd glibc-2.28
+
+
+patch -Np1 -i ../glibc-2.28-fhs-1.patch
+mkdir -v build
+cd       build
+
+PATH=$PATH:/opt/temptools/bin
+export PATH
+
+BUILD_CC="gcc"                                      \
+    CC="x86_64-unknown-linux-gnu-gcc -m32"          \
+    AR="x86_64-unknown-linux-gnu-ar"                \
+    RANLIB="x86_64-unknown-linux-gnu-ranlib"        \
+    ../configure --prefix=/usr                      \
+                 --build=x86_64-unknown-linux-gnu   \
+                 --host=i686-pc-linux-gnu           \
+                 --enable-kernel=3.2             \
+                 --enable-multi-arch                \
+                 --libdir=/usr/lib32                \
+                 --with-headers=/usr/include        \
+                 --with-binutils=/opt/temptools/bin \
+                 libc_cv_slibdir=/usr/lib32
+
+
+make
+
+
+make install_root="${PWD}/DESTDIR" install
+install -vdm755 /usr/lib32
+cp -Rv DESTDIR/usr/lib32/* /usr/lib32
+install -vm644 DESTDIR/usr/include/gnu/{lib-names,stubs}-32.h \
+               /usr/include/gnu/
+ln -svf ../usr/lib32/ld-linux.so.2 /lib/ld-linux.so.2
+ln -svf ../usr/lib32/ld-linux.so.2 /lib/ld-lsb.so.3
+ln -svf ../lib/locale /usr/lib32/locale
+echo "/usr/lib32" >> /etc/ld.so.conf
+
+cd $SRCROOT
+rm -rf glibc-2.28
+

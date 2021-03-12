@@ -1,0 +1,18 @@
+. config.sh
+cd $SRCROOT
+tar -xf xz-5.2.4.tar.xz
+cd xz-5.2.4
+
+CC="gcc -m32" ./configure \
+    --prefix=/usr \
+    --disable-static \
+    --libdir=/usr/lib32
+
+make
+
+make DESTDIR=$PWD/DESTDIR install
+cp -Rv DESTDIR/usr/lib32/* /usr/lib32
+
+cd $SRCROOT
+rm -rf xz-5.2.4
+

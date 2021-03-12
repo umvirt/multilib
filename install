@@ -1,0 +1,19 @@
+#!/bin/bash
+
+. config.sh
+
+echo "Packages dir: $SRCROOT"
+
+mkdir log
+rm log/*
+
+for filename in scripts/*;
+do
+ [ -e "$filename" ] || continue
+file=`basename $filename`
+echo "Processing file: $file"
+touch log/$file.start
+cat $filename | bash > log/$file.log
+touch log/$file.finish
+
+done

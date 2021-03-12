@@ -1,0 +1,26 @@
+. config.sh
+cd $SRCROOT
+tar -xf binutils-2.31.1.tar.xz
+cd binutils-2.31.1
+
+mkdir -v build
+cd       build
+
+../configure --prefix=/opt/temptools           \
+             --disable-nls                     \
+             --disable-static                  \
+             --disable-werror                  \
+             --enable-64-bit-bfd               \
+             --enable-gold                     \
+             --with-ld=default                 \
+             --enable-multilib                 \
+             --target=x86_64-unknown-linux-gnu \
+             --with-sysroot=/opt/temptools     \
+             --with-lib-path=/opt/temptools/lib:/opt/temptools/lib32
+
+
+make
+make install
+
+cd $SRCROOT
+rm -rf binutils-2.31.1
