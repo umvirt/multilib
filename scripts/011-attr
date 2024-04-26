@@ -1,11 +1,11 @@
 . config.sh
 cd $SRCROOT
-tar -xf attr-2.4.48.tar.gz
-cd attr-2.4.48
+tar -xf attr-2.5.2.tar.gz
+cd attr-2.5.2
 
 
 
-CC="gcc -m32" ./configure \
+CC="gcc -m32" ./configure --host=$HOST \
     --prefix=/usr         \
     --disable-static      \
     --sysconfdir=/etc     \
@@ -18,4 +18,4 @@ cp -Rv DESTDIR/usr/lib32/* /usr/lib32
 
 
 cd $SRCROOT
-rm -rf attr-2.4.48
+rm -rf attr-2.5.2

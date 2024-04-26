@@ -1,16 +1,16 @@
 . config.sh
 cd $SRCROOT
-tar -xf ncurses-6.1.tar.gz
-cd ncurses-6.1
+tar -xf ncurses-6.4-20230520.tar.xz
+cd ncurses-6.4-20230520
 
 
 sed -i '/LIBTOOL_INSTALL/d' c++/Makefile.in
 
-CC="gcc -m32" CXX="g++ -m32"  \
-    ./configure --prefix=/usr \
+CC="gcc -m32" CXX="g++ -m32" \
+    ./configure --prefix=/usr   --host=$HOST \
     --libdir=/usr/lib32       \
     --mandir=/usr/share/man   \
-    --with-shared             \
+    --with-cxx-shared             \
     --without-debug           \
     --without-normal          \
     --enable-pc-files         \
@@ -30,8 +30,8 @@ cp -Rv DESTDIR/usr/lib32/* /usr/lib32
 
 make distclean
 CC="gcc -m32" CXX="g++ -m32"  \
-    ./configure --prefix=/usr \
-    --with-shared             \
+    ./configure --prefix=/usr --host=$HOST \
+    --with-cxx-shared             \
     --without-normal          \
     --without-debug           \
     --without-cxx-binding     \
@@ -41,4 +41,4 @@ cp -av lib/lib*.so.5* /usr/lib32
 
 
 cd $SRCROOT
-rm -rf ncurses-6.1
+rm -rf ncurses-6.4-20230520

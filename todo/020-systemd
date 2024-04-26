@@ -16,7 +16,7 @@ cd build
 
 LANG=en_US.UTF-8                   \
 CC="gcc -m32" CXX="g++ -m32"       \
-meson --prefix=/usr                \
+meson setup --prefix=/usr                \
       --sysconfdir=/etc            \
       --localstatedir=/var         \
       --libdir=/usr/lib32          \
@@ -55,3 +55,4 @@ cp -Rv DESTDIR/usr/lib32/* /usr/lib32
 
 cd $SRCROOT
 #rm -rf systemd-239
+

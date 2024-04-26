@@ -1,16 +1,16 @@
 . config.sh
 cd $SRCROOT
-tar -xf glibc-2.28.tar.xz
-cd glibc-2.28
+tar -xf glibc-2.39.tar.xz
+cd glibc-2.39
 
-patch -Np1 -i ../glibc-2.28-fhs-1.patch
+patch -Np1 -i ../glibc-2.39-fhs-1.patch
 
 mkdir -v build64
 cd       build64
 
 ../configure --prefix=/usr                   \
              --disable-werror                \
-             --enable-kernel=3.2               \
+             --enable-kernel=4.19            \
              --enable-multi-arch             \
              --enable-stack-protector=strong \
              libc_cv_slibdir=/lib
@@ -48,4 +48,4 @@ unset CC CXX
 
 
 cd $SRCROOT
-rm -rf glibc-2.28
+rm -rf glibc-2.39

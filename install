@@ -13,7 +13,13 @@ do
 file=`basename $filename`
 echo "Processing file: $file"
 touch log/$file.start
-cat $filename | bash > log/$file.log
+cat $filename | bash 2>&1 | tee log/$file.log
 touch log/$file.finish
+#find files
+find /opt -type f -newer log/$file.start \! -newer log/$file.finish >> log/$file.files
+find /usr -type f -newer log/$file.start \! -newer log/$file.finish >> log/$file.files
+
+
+
 
 done

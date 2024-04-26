@@ -1,23 +1,31 @@
 . config.sh
 cd $SRCROOT
-tar -xf util-linux-2.32.1.tar.xz
-cd util-linux-2.32.1
+tar -xf util-linux-2.39.3.tar.xz
+cd util-linux-2.39.3
+
+mv /usr/bin/ncursesw6-config{,.tmp}
 
 CC="gcc -m32" \
-    ./configure ADJTIME_PATH=/var/lib/hwclock/adjtime   \
-            --docdir=/usr/share/doc/util-linux-2.32.1 \
-            --disable-chfn-chsh  \
-            --disable-login      \
-            --disable-nologin    \
-            --disable-su         \
-            --disable-setpriv    \
-            --disable-runuser    \
-            --disable-pylibmount \
-            --disable-static     \
-            --without-python     \
-            --without-systemd    \
-            --libdir=/usr/lib32  \
-            --enable-libmount-force-mountinfo
+./configure ADJTIME_PATH=/var/lib/hwclock/adjtime   \
+            --host=i686-pc-linux-gnu \
+            --libdir=/usr/lib32      \
+            --runstatedir=/run       \
+            --sbindir=/usr/sbin      \
+            --docdir=/usr/share/doc/util-linux-2.39.3 \
+            --disable-chfn-chsh      \
+            --disable-login          \
+            --disable-nologin        \
+            --disable-su             \
+            --disable-setpriv        \
+            --disable-runuser        \
+            --disable-pylibmount     \
+            --disable-liblastlog2    \
+            --disable-static         \
+            --without-python         \
+            --without-systemd        \
+            --without-systemdsystemunitdir
+
+mv /usr/bin/ncursesw6-config{.tmp,}
 
 make
 
@@ -25,4 +33,4 @@ make DESTDIR=$PWD/DESTDIR install
 cp -Rv DESTDIR/usr/lib32/* /usr/lib32
 
 cd $SRCROOT
-rm -rf util-linux-2.32.1
+rm -rf util-linux-2.39.3

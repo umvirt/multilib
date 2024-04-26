@@ -1,7 +1,7 @@
 . config.sh
 cd $SRCROOT
-tar -xf bzip2-1.0.6.tar.gz
-cd bzip2-1.0.6
+tar -xf bzip2-1.0.8.tar.gz
+cd bzip2-1.0.8
 
 sed -i 's@\(ln -s -f \)$(PREFIX)/bin/@\1@' Makefile
 
@@ -16,4 +16,4 @@ cp -Rv DESTDIR/usr/lib/* /usr/lib32
 cp -av libbz2.so* /usr/lib32
 
 cd $SRCROOT
-rm -rf bzip2-1.0.6
+rm -rf bzip2-1.0.8

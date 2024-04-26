@@ -1,10 +1,10 @@
 . config.sh
 cd $SRCROOT
-tar -xf file-5.34.tar.gz
-cd file-5.34
+tar -xf file-5.45.tar.gz
+cd file-5.45
 
 
-CC="gcc -m32" ./configure \
+CC="gcc -m32" ./configure --host=$HOST \
     --prefix=/usr --libdir=/usr/lib32
 
 make
@@ -14,4 +14,4 @@ cp -Rv DESTDIR/usr/lib32/* /usr/lib32
 
 
 cd $SRCROOT
-rm -rf file-5.34
+rm -rf file-5.45

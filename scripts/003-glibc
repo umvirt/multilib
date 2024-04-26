@@ -1,10 +1,10 @@
 . config.sh
 cd $SRCROOT
-tar -xf glibc-2.28.tar.xz
-cd glibc-2.28
+tar -xf glibc-2.39.tar.xz
+cd glibc-2.39
 
 
-patch -Np1 -i ../glibc-2.28-fhs-1.patch
+patch -Np1 -i ../glibc-2.39-fhs-1.patch
 mkdir -v build
 cd       build
 
@@ -18,7 +18,7 @@ BUILD_CC="gcc"                                      \
     ../configure --prefix=/usr                      \
                  --build=x86_64-unknown-linux-gnu   \
                  --host=i686-pc-linux-gnu           \
-                 --enable-kernel=3.2             \
+                 --enable-kernel=4.19               \
                  --enable-multi-arch                \
                  --libdir=/usr/lib32                \
                  --with-headers=/usr/include        \
@@ -40,5 +40,5 @@ ln -svf ../lib/locale /usr/lib32/locale
 echo "/usr/lib32" >> /etc/ld.so.conf
 
 cd $SRCROOT
-rm -rf glibc-2.28
+rm -rf glibc-2.39
 

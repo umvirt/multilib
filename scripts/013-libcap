@@ -1,14 +1,22 @@
 . config.sh
 cd $SRCROOT
-tar -xf libcap-2.25.tar.xz
-cd libcap-2.25
+tar -xf libcap-2.69.tar.xz
+cd libcap-2.69
 
-sed -i '/install.*STALIBNAME/d' libcap/Makefile
+sed -i '/install -m.*STA/d' libcap/Makefile
 
-make CC="gcc -m32"
+#Build _makenames binary by host to generate cap_names.h file
+make -C libcap _makenames
 
-make lib=lib32 prefix=$PWD/DESTDIR/usr -C libcap install
+make CC="gcc -m32 -march=i686"
+
+make CC="gcc -m32 -march=i686" lib=lib32 prefix=$PWD/DESTDIR/usr -C libcap install
 cp -Rv DESTDIR/usr/lib32/* /usr/lib32
+sed -e "s|^libdir=.*|libdir=/usr/lib32|" -i /usr/lib32/pkgconfig/lib{cap,psx}.pc
+chmod -v 755 /usr/lib32/libcap.so.2.69
+rm -rf DESTDIR
+
+
 
 cd $SRCROOT
-rm -rf libcap-2.25
+rm -rf libcap-2.69

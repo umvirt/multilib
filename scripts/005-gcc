@@ -1,11 +1,11 @@
 . config.sh
 cd $SRCROOT
-tar -xf gcc-8.2.0.tar.xz
-cd gcc-8.2.0
+tar -xf gcc-13.2.0.tar.xz
+cd gcc-13.2.0
 
 
-tar -xf ../isl-0.18.tar.bz2
-mv isl-0.18 isl
+tar -xf ../isl-0.24.tar.bz2
+mv isl-0.24 isl
 
 sed -e '/m64=/s/lib64/lib/' \
     -i.orig gcc/config/i386/t-linux64
@@ -30,4 +30,4 @@ mv -v /usr/lib32/*gdb.py \
            /usr/share/gdb/auto-load/usr/lib32/
 
 cd $SRCROOT
-rm -rf gcc-8.2.0
+rm -rf gcc-13.2.0
