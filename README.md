@@ -1,22 +1,20 @@
-#ULFS Mutilib
+# ULFS Mutilib
 
 Version 0.2.1 (Linux From Scratch 12.1 systemd)
 
 ## About
 
-Scripts to build multilib support for Linux From Scratch.
-
-Multilib support is needed to run x86 binaries in amd64 environment:
+Multilib is needed to run x86 binaries in amd64 environment:
 
 * Wine
 * Some compilers & build utils
 * Old GNU/Linux games and emulators
 
-## Current status
+Scripts to build multilib support for Linux From Scratch.
 
-Current status is almost done. 
+This scripts covers only base system which contain packages from LFS book.
 
-All is needed is fix issue with systemd-255 build.
+Multilib is optional subsystem it can be installed at any time.
 
 ## Installation
 
@@ -41,6 +39,14 @@ If you wish to add new package you can use followed template:
 
         make DESTDIR=$PWD/DESTDIR install
         cp -Rv DESTDIR/usr/lib32/* /usr/lib32
+
+## Usage
+
+After installing Multilib you can install various packages.
+
+To install WINE subsystem in ULFS just type:
+
+        chimp install wine:lib32_amd64
 
 ## Useful links
 
