@@ -34,9 +34,9 @@ install -vdm755 /usr/lib32
 cp -Rv DESTDIR/usr/lib32/* /usr/lib32
 install -vm644 DESTDIR/usr/include/gnu/{lib-names,stubs}-32.h \
                /usr/include/gnu/
-ln -svf ../usr/lib32/ld-linux.so.2 /lib/ld-linux.so.2
-ln -svf ../usr/lib32/ld-linux.so.2 /lib/ld-lsb.so.3
-ln -svf ../lib/locale /usr/lib32/locale
+ln -svf /usr/lib32/ld-linux.so.2 /lib/ld-linux.so.2
+ln -svf /usr/lib32/ld-linux.so.2 /lib/ld-lsb.so.3
+ln -svf /lib/locale /usr/lib32/locale
 echo "/usr/lib32" >> /etc/ld.so.conf
 
 cd $SRCROOT
