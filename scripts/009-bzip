@@ -5,10 +5,10 @@ cd bzip2-1.0.8
 
 sed -i 's@\(ln -s -f \)$(PREFIX)/bin/@\1@' Makefile
 
-make CC="gcc -m32" BIGFILES="" -f Makefile-libbz2_so
+make CC="gcc -m32 -fPIC" BIGFILES="" -f Makefile-libbz2_so
 make clean
 
-make CC="gcc -m32" \
+make CC="gcc -m32 -fPIC" \
      BIGFILES=""
 
 make PREFIX=$PWD/DESTDIR/usr install
