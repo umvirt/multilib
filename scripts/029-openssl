@@ -1,0 +1,19 @@
+. config.sh
+cd $SRCROOT
+tar -xf openssl-3.2.1.tar.gz
+cd openssl-3.2.1
+
+CC="gcc -m32" CXX="g++ -m32" \
+PKG_CONFIG_PATH="/usr/lib32/pkgconfig" \
+./Configure --prefix=/usr --libdir=/usr/lib32 \
+--openssldir=/etc/ssl \
+shared enable-ktls linux-elf
+
+make
+
+make DESTDIR=$PWD/DESTDIR install
+cp -Rv DESTDIR/usr/lib32/* /usr/lib32
+
+cd $SRCROOT
+rm -rf openssl-3.2.1.tar.gz
+

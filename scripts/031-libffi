@@ -1,0 +1,24 @@
+. config.sh
+cd $SRCROOT
+tar -xf libffi-3.4.4.tar.gz
+cd libffi-3.4.4
+
+CC="gcc -m32" CXX="g++ -m32" \
+PKG_CONFIG_PATH="/usr/lib32/pkgconfig" \
+./configure --build=i686-pc-linux-gnu \
+    --disable-exec-static-tramp \
+    --disable-multi-os-directory \
+    --disable-static \
+    --enable-pax_emutramp \
+    --libdir=/usr/lib32 \
+    --prefix=/usr 
+
+make
+
+make DESTDIR=$PWD/DESTDIR install
+cp -Rv DESTDIR/usr/lib32/* /usr/lib32
+
+
+cd $SRCROOT
+rm -rf libffi-3.4.4
+

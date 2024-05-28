@@ -1,0 +1,33 @@
+. config.sh
+cd $SRCROOT
+tar -xf zstd-1.5.5.tar.gz
+cd zstd-1.5.5
+
+# avoid error on tests without static libs, we use LD_LIBRARY_PATH
+sed '/build static library to build tests/d' -i build/cmake/CMakeLists.txt
+sed 's/libzstd_static/libzstd_shared/g' -i build/cmake/tests/CMakeLists.txt
+
+CC="gcc -m32" \
+CXX="g++ -m32" \
+ASMFLAGS="-m32" \
+PKG_CONFIG_PATH="/usr/lib32/pkgconfig" \
+cmake -S build/cmake -B build -G Ninja \
+    -DCMAKE_BUILD_TYPE=None \
+    -DCMAKE_INSTALL_PREFIX=/usr \
+    -DCMAKE_INSTALL_LIBDIR=lib32 \
+    -DZSTD_BUILD_CONTRIB=ON \
+    -DZSTD_BUILD_STATIC=OFF \
+    -DZSTD_BUILD_TESTS=ON \
+    -DZSTD_PROGRAMS_LINK_SHARED=ON
+
+
+cmake --build build
+
+
+DESTDIR=DESTDIR cmake --install build
+cp -Rv DESTDIR/usr/lib32/* /usr/lib32
+
+
+cd $SRCROOT
+rm -rf zstd-1.5.5
+

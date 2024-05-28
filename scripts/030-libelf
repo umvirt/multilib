@@ -1,0 +1,22 @@
+. config.sh
+cd $SRCROOT
+tar -xf elfutils-0.190.tar.bz2
+cd elfutils-0.190
+
+CC="gcc -m32" CXX="g++ -m32" CFLAGS+=" -ffat-lto-objects -fPIC" \
+PKG_CONFIG_PATH="/usr/lib32/pkgconfig" \
+./configure     --prefix=/usr \
+    --sysconfdir=/etc \
+    --libdir=/usr/lib32 \
+    --disable-debuginfod \
+    --disable-libdebuginfod
+
+make
+
+make DESTDIR=$PWD/DESTDIR install
+cp -Rv DESTDIR/usr/include/* /usr/include
+cp -Rv DESTDIR/usr/lib32/* /usr/lib32
+
+cd $SRCROOT
+rm -rf elfutils-0.190
+
