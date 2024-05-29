@@ -1,6 +1,6 @@
 # ULFS Mutilib
 
-Version 0.2.1 (Linux From Scratch 12.1 systemd)
+ULFS Version 0.2.1 (Linux From Scratch 12.1 systemd)
 
 ## About
 
@@ -18,8 +18,10 @@ Multilib is optional subsystem it can be installed at any time.
 
 ## Installation
 
-* place LFS source packages and patches in source/Sources directory.
-* download and place isl-0.24.tar.bz2 in source/Sources directory.
+* prepeare a disk space (~ 10GB is needed)
+* point a build directory path in SRCROOT variable in config.sh file
+* place LFS source packages and patches in build directory.
+* download and place isl-0.24.tar.bz2 in build directory.
 * run install script:
 
         ./install
@@ -28,9 +30,13 @@ Note: it is possible to run scripts one by one by placing it in scripts director
 
 ## Default lib32 installation script
 
-If you wish to add new package you can use followed template:
+If you wish to add new package you can use followed templates according with a build system
 
-        CC="gcc -m32" ./configure \
+### Autotools (configure)
+
+        CC="gcc -m32" CXX="g++ -m32" \
+        PKG_CONFIG_PATH="/usr/lib32/pkgconfig" \
+        ./configure \
             --prefix=/usr \
             --disable-static \
             --libdir=/usr/lib32
@@ -38,6 +44,42 @@ If you wish to add new package you can use followed template:
         make
 
         make DESTDIR=$PWD/DESTDIR install
+        cp -Rv DESTDIR/usr/lib32/* /usr/lib32
+
+### CMake
+        mkdir build
+        cd build
+
+        export CC="gcc -m32"
+        export CXX="g++ -m32"
+        export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+        
+        cmake \
+             -DCMAKE_INSTALL_PREFIX=/usr       \
+             -DCMAKE_INSTALL_LIBDIR=/usr/lib32 \
+        ..
+
+        make
+
+        make DESTDIR=$PWD/DESTDIR install
+        cp -Rv DESTDIR/usr/lib32/* /usr/lib3
+
+### Meson
+
+        mkdir build
+        cd build
+
+        CC="gcc -m32" CXX="g++ -m32" \
+        PKG_CONFIG_PATH="/usr/lib32/pkgconfig" \
+        meson setup --libdir /usr/lib32 \
+            --prefix=/usr               \
+            --libexecdir /usr/lib32     \
+        ..
+
+
+        meson compile
+
+        meson install --destdir DESTDIR
         cp -Rv DESTDIR/usr/lib32/* /usr/lib32
 
 ## Usage
