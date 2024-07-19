@@ -14,7 +14,13 @@ Scripts to build multilib support for Linux From Scratch.
 
 This scripts covers only base system which contain packages from LFS book.
 
-Multilib is optional subsystem it can be installed at any time.
+Multilib is optional subsystem it can be installed at any time. The earlier the better.
+
+Warning: Installed packages can affect on multilib packages build.
+Build system of some 32-bit packages can detect 64-bit packages and start to use it as dependencies this lead to errors.
+In order to avoid that we disable some checks in multilib packages build scripts.
+If you get such error then fix build scripts manualy.
+
 
 ## Installation
 
@@ -28,7 +34,21 @@ Multilib is optional subsystem it can be installed at any time.
 
 Note: it is possible to run scripts one by one by placing it in scripts directory
 
-## Default lib32 installation script
+## Quality check
+
+There is no error handler. Multilib installation have to be verified. Check that all multilib packages have installed files with command
+
+        wc -l log/*.files | grep " 0"
+
+This command will print packages which not installed properly.
+
+If this command don't print output that means that all packages was installed properly.
+
+## Cleanup
+
+If multilib installed properly then remove */opt/temptools* directory.
+
+## Default lib32 installation scripts
 
 If you wish to add new package you can use followed templates according with a build system
 
@@ -62,7 +82,7 @@ If you wish to add new package you can use followed templates according with a b
         make
 
         make DESTDIR=$PWD/DESTDIR install
-        cp -Rv DESTDIR/usr/lib32/* /usr/lib3
+        cp -Rv DESTDIR/usr/lib32/* /usr/lib32
 
 ### Meson
 
@@ -89,6 +109,7 @@ After installing Multilib you can install various packages.
 To install WINE subsystem in ULFS just type:
 
         chimp install wine:lib32_amd64
+
 
 ## Useful links
 
