@@ -30,7 +30,7 @@ If you get such error then fix build scripts manualy.
 * download and place isl-0.24.tar.bz2 in build directory.
 * run install script:
 
-        ./install
+    ./install
 
 Note: it is possible to run scripts one by one by placing it in scripts directory
 
@@ -38,7 +38,7 @@ Note: it is possible to run scripts one by one by placing it in scripts director
 
 There is no error handler. Multilib installation have to be verified. Check that all multilib packages have installed files with command
 
-        wc -l log/*.files | grep " 0"
+    wc -l log/*.files | grep " 0"
 
 This command will print packages which not installed properly.
 
@@ -54,53 +54,53 @@ If you wish to add new package you can use followed templates according with a b
 
 ### Autotools (configure)
 
-        CC="gcc -m32" CXX="g++ -m32" \
-        PKG_CONFIG_PATH="/usr/lib32/pkgconfig" \
-        ./configure \
-            --prefix=/usr \
-            --disable-static \
-            --libdir=/usr/lib32
+    CC="gcc -m32" CXX="g++ -m32" \
+    PKG_CONFIG_PATH="/usr/lib32/pkgconfig" \
+    ./configure \
+        --prefix=/usr \
+        --disable-static \
+        --libdir=/usr/lib32
 
-        make
+    make
 
-        make DESTDIR=$PWD/DESTDIR install
-        cp -Rv DESTDIR/usr/lib32/* /usr/lib32
+    make DESTDIR=$PWD/DESTDIR install
+    cp -Rv DESTDIR/usr/lib32/* /usr/lib32
 
 ### CMake
-        mkdir build
-        cd build
+    mkdir build
+    cd build
 
-        export CC="gcc -m32"
-        export CXX="g++ -m32"
-        export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
-        
-        cmake \
-             -DCMAKE_INSTALL_PREFIX=/usr       \
-             -DCMAKE_INSTALL_LIBDIR=/usr/lib32 \
-        ..
+    export CC="gcc -m32"
+    export CXX="g++ -m32"
+    export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+    
+    cmake \
+         -DCMAKE_INSTALL_PREFIX=/usr       \
+         -DCMAKE_INSTALL_LIBDIR=/usr/lib32 \
+    ..
 
-        make
+    make
 
-        make DESTDIR=$PWD/DESTDIR install
-        cp -Rv DESTDIR/usr/lib32/* /usr/lib32
+    make DESTDIR=$PWD/DESTDIR install
+    cp -Rv DESTDIR/usr/lib32/* /usr/lib32
 
 ### Meson
 
-        mkdir build
-        cd build
+    mkdir build
+    cd build
 
-        CC="gcc -m32" CXX="g++ -m32" \
-        PKG_CONFIG_PATH="/usr/lib32/pkgconfig" \
-        meson setup --libdir /usr/lib32 \
-            --prefix=/usr               \
-            --libexecdir /usr/lib32     \
-        ..
+    CC="gcc -m32" CXX="g++ -m32" \
+    PKG_CONFIG_PATH="/usr/lib32/pkgconfig" \
+    meson setup --libdir /usr/lib32 \
+        --prefix=/usr           \
+        --libexecdir /usr/lib32     \
+    ..
 
 
-        meson compile
+    meson compile
 
-        meson install --destdir DESTDIR
-        cp -Rv DESTDIR/usr/lib32/* /usr/lib32
+    meson install --destdir DESTDIR
+    cp -Rv DESTDIR/usr/lib32/* /usr/lib32
 
 ## Usage
 
@@ -108,7 +108,7 @@ After installing Multilib you can install various packages.
 
 To install WINE subsystem in ULFS just type:
 
-        chimp install wine:lib32_amd64
+    chimp install wine:lib32_amd64
 
 
 ## Useful links
