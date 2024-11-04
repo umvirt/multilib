@@ -31,7 +31,7 @@ cd       build
     --disable-libvtv                   \
     --disable-libstdcxx                \
     --enable-languages=c,c++           \
-    --with-glibc-version=2.39          \
+    --with-glibc-version=2.40          \
     --with-slibdir=/opt/temptools/lib  \
     --with-sysroot=/opt/temptools      \
     --with-newlib                      \
