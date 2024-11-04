@@ -1,0 +1,23 @@
+. config.sh
+cd $SRCROOT
+tar -xf lz4-1.10.0.tar.gz
+cd lz4-1.10.0
+
+export CC="gcc -m32" 
+export CXX="g++ -m32" 
+export PKG_CONFIG_PATH="/usr/lib32/pkgconfig" \
+
+make -C lib PREFIX=/usr
+make -C programs PREFIX=/usr lz4 lz4c
+
+make install \
+    PREFIX=/usr \
+    LIBDIR=/usr/lib32 \
+    PKGCONFIGDIR=/usr/lib32/pkgconfig \
+    DESTDIR=$PWD/DESTDIR install
+
+cp -Rv DESTDIR/usr/lib32/* /usr/lib32
+
+cd $SRCROOT
+rm -rf lz4-1.10.0
+
