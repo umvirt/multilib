@@ -10,6 +10,7 @@ CC="gcc -m32" ./configure --host=$HOST \
     --sysconfdir=/etc     \
     --with-xz             \
     --with-zlib           \
+    --with-zstd           \
     --with-rootlibdir=/usr/lib32
 
 make
