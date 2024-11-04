@@ -1,7 +1,7 @@
 . config.sh
 cd $SRCROOT
-tar -xf libcap-2.69.tar.xz
-cd libcap-2.69
+tar -xf libcap-2.70.tar.xz
+cd libcap-2.70
 
 sed -i '/install -m.*STA/d' libcap/Makefile
 
@@ -19,4 +19,4 @@ rm -rf DESTDIR
 
 
 cd $SRCROOT
-rm -rf libcap-2.69
+rm -rf libcap-2.70

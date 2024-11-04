@@ -1,7 +1,7 @@
 . config.sh
 cd $SRCROOT
-tar -xf elfutils-0.190.tar.bz2
-cd elfutils-0.190
+tar -xf elfutils-0.191.tar.bz2
+cd elfutils-0.191
 
 CC="gcc -m32" CXX="g++ -m32" CFLAGS+=" -ffat-lto-objects -fPIC" \
 PKG_CONFIG_PATH="/usr/lib32/pkgconfig" \
@@ -18,5 +18,5 @@ cp -Rv DESTDIR/usr/include/* /usr/include
 cp -Rv DESTDIR/usr/lib32/* /usr/lib32
 
 cd $SRCROOT
-rm -rf elfutils-0.190
+rm -rf elfutils-0.191
 

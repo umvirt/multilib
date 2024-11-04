@@ -1,10 +1,10 @@
 . config.sh
 cd $SRCROOT
-tar -xf glibc-2.39.tar.xz
-cd glibc-2.39
+tar -xf glibc-2.40.tar.xz
+cd glibc-2.40
 
 
-patch -Np1 -i ../glibc-2.39-fhs-1.patch
+patch -Np1 -i ../glibc-2.40-fhs-1.patch
 mkdir -v build
 cd       build
 
@@ -40,5 +40,5 @@ ln -svf /lib/locale /usr/lib32/locale
 echo "/usr/lib32" >> /etc/ld.so.conf
 
 cd $SRCROOT
-rm -rf glibc-2.39
+rm -rf glibc-2.40
 

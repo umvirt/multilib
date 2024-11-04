@@ -1,7 +1,7 @@
 . config.sh
 cd $SRCROOT
-tar -xf libffi-3.4.4.tar.gz
-cd libffi-3.4.4
+tar -xf libffi-3.4.6.tar.gz
+cd libffi-3.4.6
 
 CC="gcc -m32" CXX="g++ -m32" \
 PKG_CONFIG_PATH="/usr/lib32/pkgconfig" \
@@ -20,5 +20,5 @@ cp -Rv DESTDIR/usr/lib32/* /usr/lib32
 
 
 cd $SRCROOT
-rm -rf libffi-3.4.4
+rm -rf libffi-3.4.6
 

@@ -1,7 +1,7 @@
 . config.sh
 cd $SRCROOT
-tar -xf gcc-13.2.0.tar.xz
-cd gcc-13.2.0
+tar -xf gcc-14.2.0.tar.xz
+cd gcc-14.2.0
 
 
 tar -xf ../isl-0.24.tar.bz2
@@ -30,4 +30,4 @@ mv -v /usr/lib32/*gdb.py \
            /usr/share/gdb/auto-load/usr/lib32/
 
 cd $SRCROOT
-rm -rf gcc-13.2.0
+rm -rf gcc-14.2.0.tar.xz

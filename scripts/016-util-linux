@@ -1,7 +1,7 @@
 . config.sh
 cd $SRCROOT
-tar -xf util-linux-2.39.3.tar.xz
-cd util-linux-2.39.3
+tar -xf util-linux-2.40.2.tar.xz
+cd util-linux-2.40.2
 
 mv /usr/bin/ncursesw6-config{,.tmp}
 
@@ -33,4 +33,4 @@ make DESTDIR=$PWD/DESTDIR install
 cp -Rv DESTDIR/usr/lib32/* /usr/lib32
 
 cd $SRCROOT
-rm -rf util-linux-2.39.3
+rm -rf util-linux-2.40.2

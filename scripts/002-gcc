@@ -1,7 +1,7 @@
 . config.sh
 cd $SRCROOT
-tar -xf gcc-13.2.0.tar.xz
-cd gcc-13.2.0
+tar -xf gcc-14.2.0.tar.xz
+cd gcc-14.2.0
 
 sed -e '/m64=/s/lib64/lib/' \
     -i.orig gcc/config/i386/t-linux64
@@ -44,4 +44,4 @@ make
 make install
 
 cd $SRCROOT
-rm -rf gcc-13.2.0
+rm -rf gcc-14.2.0

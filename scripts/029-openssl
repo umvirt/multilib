@@ -1,7 +1,7 @@
 . config.sh
 cd $SRCROOT
-tar -xf openssl-3.2.1.tar.gz
-cd openssl-3.2.1
+tar -xf openssl-3.3.1.tar.gz
+cd openssl-3.3.1
 
 CC="gcc -m32" CXX="g++ -m32" \
 PKG_CONFIG_PATH="/usr/lib32/pkgconfig" \
@@ -15,5 +15,5 @@ make DESTDIR=$PWD/DESTDIR install
 cp -Rv DESTDIR/usr/lib32/* /usr/lib32
 
 cd $SRCROOT
-rm -rf openssl-3.2.1
+rm -rf openssl-3.3.1
 

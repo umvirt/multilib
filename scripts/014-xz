@@ -1,7 +1,7 @@
 . config.sh
 cd $SRCROOT
-tar -xf xz-5.4.6.tar.xz
-cd xz-5.4.6
+tar -xf xz-5.6.2.tar.xz
+cd xz-5.6.2
 
 CC="gcc -m32" ./configure --host=$HOST \
     --prefix=/usr \
@@ -14,5 +14,5 @@ make DESTDIR=$PWD/DESTDIR install
 cp -Rv DESTDIR/usr/lib32/* /usr/lib32
 
 cd $SRCROOT
-rm -rf xz-5.4.6
+rm -rf xz-5.6.2
 
