@@ -11,7 +11,8 @@ CC="gcc -m32" ./configure --host=$HOST \
     --with-xz             \
     --with-zlib           \
     --with-zstd           \
-    --with-rootlibdir=/usr/lib32
+    --with-rootlibdir=/usr/lib32 \
+    --disable-manpages
 
 make
 
