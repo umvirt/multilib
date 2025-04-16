@@ -1,7 +1,7 @@
 . config.sh
 cd $SRCROOT
-tar -xf kmod-33.tar.xz
-cd kmod-33
+tar -xf kmod-34.tar.xz
+cd kmod-34
 
 CC="gcc -m32" ./configure --host=$HOST \
     --prefix=/usr         \
@@ -20,4 +20,4 @@ make DESTDIR=$PWD/DESTDIR install
 cp -Rv DESTDIR/usr/lib32/* /usr/lib32
 
 cd $SRCROOT
-rm -rf kmod-33
+rm -rf kmod-34

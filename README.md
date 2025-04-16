@@ -1,6 +1,6 @@
 # ULFS Mutilib
 
-ULFS Version 0.2.2 (Linux From Scratch 12.2 systemd)
+ULFS Version 0.2.3 (Linux From Scratch 12.3 systemd)
 
 ## About
 

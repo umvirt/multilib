@@ -1,7 +1,7 @@
 . config.sh
 cd $SRCROOT
-tar -xf util-linux-2.40.2.tar.xz
-cd util-linux-2.40.2
+tar -xf util-linux-2.40.4.tar.xz
+cd util-linux-2.40.4
 
 mv /usr/bin/ncursesw6-config{,.tmp}
 
@@ -11,7 +11,7 @@ CC="gcc -m32" \
             --libdir=/usr/lib32      \
             --runstatedir=/run       \
             --sbindir=/usr/sbin      \
-            --docdir=/usr/share/doc/util-linux-2.40.2 \
+            --docdir=/usr/share/doc/util-linux-2.40.4 \
             --disable-chfn-chsh      \
             --disable-login          \
             --disable-nologin        \
@@ -33,4 +33,4 @@ make DESTDIR=$PWD/DESTDIR install
 cp -Rv DESTDIR/usr/lib32/* /usr/lib32
 
 cd $SRCROOT
-rm -rf util-linux-2.40.2
+rm -rf util-linux-2.40.4

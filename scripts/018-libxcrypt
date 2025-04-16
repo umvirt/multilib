@@ -1,7 +1,7 @@
 . config.sh
 cd $SRCROOT
-tar -xf libxcrypt-4.4.36.tar.xz
-cd libxcrypt-4.4.36
+tar -xf libxcrypt-4.4.38.tar.xz
+cd libxcrypt-4.4.38
 
 CC="gcc -m32" \
 ./configure --prefix=/usr                \
@@ -20,5 +20,5 @@ ln -svf libxcrypt.pc /usr/lib32/pkgconfig/libcrypt.pc
 
 
 cd $SRCROOT
-rm -rf libxcrypt-4.4.36
+rm -rf libxcrypt-4.4.38
 
