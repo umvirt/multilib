@@ -4,8 +4,8 @@ tar -xf gcc-14.2.0.tar.xz
 cd gcc-14.2.0
 
 
-tar -xf ../isl-0.24.tar.bz2
-mv isl-0.24 isl
+tar -xf ../isl-0.27.tar.bz2
+mv isl-0.27 isl
 
 sed -e '/m64=/s/lib64/lib/' \
     -i.orig gcc/config/i386/t-linux64
