@@ -27,7 +27,7 @@ If you get such error then fix build scripts manualy.
 * prepeare a disk space (~ 10GB is needed)
 * point a build directory path in SRCROOT variable in config.sh file
 * place LFS source packages and patches in build directory.
-* download and place isl-0.24.tar.bz2 in build directory.
+* download and place isl-0.27.tar.xz in build directory.
 * run install script:
 
     ./install
@@ -110,9 +110,20 @@ To install WINE subsystem in ULFS just type:
 
     chimp install wine:lib32_amd64
 
+## Packages downloads
+
+### ISL
+
+Home page: [http://libisl.sourceforge.io/](http://libisl.sourceforge.io/)
+
+Download: 
+
+* [https://libisl.sourceforge.io/isl-0.27.tar.xz](https://libisl.sourceforge.io/isl-0.27.tar.xz)
+* [https://umvirt.com/linux/downloads/0.2.3/packages/i/isl-0.27.tar.xz](https://umvirt.com/linux/downloads/0.2.3/packages/i/isl-0.27.tar.xz)
+
+MD5 sum: 11ee9d335b227ea2e8579c4ba6e56138
 
 ## Useful links
 
-* [https://www.linuxfromscratch.org/~dj/lfs-systemd-multilib/](https://www.linuxfromscratch.org/~dj/lfs-systemd-multilib/)
-* [https://www.linuxfromscratch.org/~thomas/multilib/](https://www.linuxfromscratch.org/~thomas/multilib/)
+* [https://www.linuxfromscratch.org/~thomas/multilib-systemd/](https://www.linuxfromscratch.org/~thomas/multilib-systemd/)
 * [https://systemd-devel.freedesktop.narkive.com/bEGtbucg/cross-building-systemd](https://systemd-devel.freedesktop.narkive.com/bEGtbucg/cross-building-systemd)
