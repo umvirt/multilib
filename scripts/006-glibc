@@ -48,4 +48,4 @@ unset CC CXX
 
 
 cd $SRCROOT
-rm -rf glibc-2.41.tar.xz
+rm -rf glibc-2.41

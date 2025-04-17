@@ -30,4 +30,4 @@ mv -v /usr/lib32/*gdb.py \
            /usr/share/gdb/auto-load/usr/lib32/
 
 cd $SRCROOT
-rm -rf gcc-14.2.0.tar.xz
+rm -rf gcc-14.2.0
