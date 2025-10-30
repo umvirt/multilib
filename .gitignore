@@ -1,2 +1,4 @@
 README.html
 log/*
+config/config.sh
+build/

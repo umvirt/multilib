@@ -1,0 +1,23 @@
+#
+# UmVirt LFS Multilib Configuration file
+# ----------------------------------------
+#
+# Temporary directory
+#
+# Path to directory where temorary directory tree will be placed.
+# After installation this directory can be removed.
+#
+# Possible values: path to directory
+# Default: "/sources/multilib"
+#
+LFS=
+#
+# Sources directory
+#
+# Path to directory where source packages from LFS book is placed.
+# Also this directory will be used as build directory.
+#
+# Possible values: path to directory
+# Default: "/sources"
+#
+SRCROOT=

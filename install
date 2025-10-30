@@ -1,25 +1,13 @@
-#!/bin/bash
+if [ ! -f build/install ]
+then
 
-. config.sh
+echo "ERROR: ULFS build environment is not initialized!"
+echo
+echo "Run envinit script first!"
+echo
+exit
 
-echo "Packages dir: $SRCROOT"
+fi
 
-mkdir log
-rm log/*
-
-for filename in scripts/*;
-do
- [ -e "$filename" ] || continue
-file=`basename $filename`
-echo "Processing file: $file"
-touch log/$file.start
-cat $filename | bash 2>&1 | tee log/$file.log
-touch log/$file.finish
-#find files
-find /opt -type f -newer log/$file.start \! -newer log/$file.finish >> log/$file.files
-find /usr -type f -newer log/$file.start \! -newer log/$file.finish >> log/$file.files
-
-
-
-
-done
+cd build
+./install

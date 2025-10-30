@@ -1,0 +1,6 @@
+ULFS 0.2.4
+
+- removed old documentation
+- removed isl dependency because it not mentioned in LFS
+- unified configuration approach with LFSAutoBuilder and LFSCustomizer
+

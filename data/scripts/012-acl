@@ -1,0 +1,13 @@
+. config.sh
+cd $SRCROOT
+tar -xf acl-2.3.2.tar.xz
+cd acl-2.3.2
+
+CC="gcc -m32" ./configure  --host=$HOST              \
+    --prefix=/usr --libdir=/usr/lib32    \
+    --disable-static --libexecdir=/usr/lib32
+
+make
+
+make DESTDIR=$PWD/DESTDIR install
+cp -Rv DESTDIR/usr/lib32/* /usr/lib32

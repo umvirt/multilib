@@ -1,0 +1,70 @@
+#!/bin/bash
+
+# Read config file
+. config/config.sh
+# Get values
+. data/configparser.sh
+
+echo -e "Deleting buid directory contents...\n"
+rm -rfv build/*
+echo
+
+#Copy scripts
+cp -rv data/scripts build
+
+#Create config file
+echo '#MLFS chapter 4.4' >> build/config.sh
+echo 'set +h' >> build/config.sh
+echo 'umask 022' >> build/config.sh
+echo "LFS=$LFS" >> build/config.sh
+echo 'LC_ALL=POSIX' >> build/config.sh
+echo 'LFS_TGT=x86_64-lfs-linux-gnu' >> build/config.sh
+echo 'LFS_TGT32=i686-lfs-linux-gnu' >> build/config.sh
+echo 'LFS_TGTX32=x86_64-lfs-linux-gnux32' >> build/config.sh
+echo 'PATH=/usr/bin' >> build/config.sh
+echo 'if [ ! -L /bin ]; then PATH=/bin:$PATH; fi' >> build/config.sh
+echo 'PATH=$LFS/tools/bin:$PATH' >> build/config.sh
+echo 'CONFIG_SITE=$LFS/usr/share/config.site' >> build/config.sh
+echo 'export LFS LC_ALL LFS_TGT LFS_TGT32 LFS_TGTX32 PATH' >> build/config.sh
+echo '' >> build/config.sh
+echo '#custom sources root' >> build/config.sh
+echo "SRCROOT=$SRCROOT" >> build/config.sh
+echo 'export SRCROOT' >> build/config.sh
+
+#Create install script
+cat >> build/install << "EOF"
+#!/bin/bash
+
+. config.sh
+
+if [ ! -d $LFS ]
+then
+
+mkdir -p $LFS
+
+fi
+
+echo "Temporary directory: $LFS"
+echo "Sources directory: $SRCROOT"
+
+mkdir log
+rm log/*
+
+for filename in scripts/*;
+do
+ [ -e "$filename" ] || continue
+file=`basename $filename`
+echo "Processing file: $file"
+touch log/$file.start
+cat $filename | bash 2>&1 | tee log/$file.log
+touch log/$file.finish
+#find files
+find $LFS -type f -newer log/$file.start \! -newer log/$file.finish >> log/$file.files
+find /opt -type f -newer log/$file.start \! -newer log/$file.finish >> log/$file.files
+find /usr -type f -newer log/$file.start \! -newer log/$file.finish >> log/$file.files
+done
+
+EOF
+
+#Make install script executable
+chmod 777 build/install

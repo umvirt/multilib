@@ -1,34 +1,94 @@
-# ULFS Mutilib
+# ULFS Mutilib Builder
 
-ULFS Version 0.2.3 (Linux From Scratch 12.3 systemd)
+ULFS Version: 0.2.4
 
-## About
+LFS Version: 12.4-systemd
 
-Multilib is needed to run x86 binaries in amd64 environment:
+License: GPL
 
-* Wine
+## Preface
+
+Multilib is subsystem which needed to run 32-bit x86 binaries in 64-bit amd64 environment:
+
+* WINE
+* User mode Linux (UML)
 * Some compilers & build utils
 * Old GNU/Linux games and emulators
 
-Scripts to build multilib support for Linux From Scratch.
+LFS project is provide MLFS book, LFS book version with multilib support. 
+It should be built from zero as alternative to LFS.
 
-This scripts covers only base system which contain packages from LFS book.
+Enabling multilib support for every amd64 system is redundant. In many cases it not needed.
+It can became a heavy ballast which eats disk space and which makes backups bigger.
 
-Multilib is optional subsystem it can be installed at any time. The earlier the better.
+## About
+
+ULFS is provide alternative to MLFS Multilib subsystem which can be installed on exist LFS system on demand.
+
+* It replaces a common exist packages to packages with multilib support which was installed on LFS stage.
+* It installs a multilib versions of libraries which was istalled on LFS stage.
+
+ULFS Multilib is based on early version of MLFS.
+
+* Many packages from MLFS are skiped because them already installed on LFS stage.
+* MLFS instructions has been edited to work with current environment.
+
+Software packages which was installed on BLFS stage is not replaced.
+Packages multilib versions are can be installed anytime with archpackages directly by user or indirectly as dependencies.
+
+ULFS Multilib is optional subsystem it can be installed at any time. The earlier the better.
+
+To install Multilib on ULFS or other BLFS-based system this ULFS Multilib builder is can be used.
 
 Warning: Installed packages can affect on multilib packages build.
 Build system of some 32-bit packages can detect 64-bit packages and start to use it as dependencies this lead to errors.
 In order to avoid that we disable some checks in multilib packages build scripts.
-If you get such error then fix build scripts manualy.
+If you get such error then fix build scripts manually.
 
+## Preparation
 
-## Installation
+### Downloading ULFS Multilib Builder
 
-* prepeare a disk space (~ 10GB is needed)
-* point a build directory path in SRCROOT variable in config.sh file
-* place LFS source packages and patches in build directory.
-* download and place isl-0.27.tar.xz in build directory.
-* run install script:
+Select a directory for ULFS Multilib Builder. 
+To reduce impact on root filesystem it's recomened to place ULFS Multilib installer on additional partition.
+
+Use *Git* to download ULFS Multilib builder and place it on multilib-builder directory:
+
+    git clone https://gitlab.com/Umvirt/multilib multilib-builder
+
+After downloading via *Git* you have to make some directories:
+
+    make dirs
+
+### Configuration
+
+You can use "config/config.sh" file to set configuration options.
+
+If file is not available copy config file template.
+
+    cd config
+    cp config.sh.sample config.sh
+
+After editing config.sh file check configuration with dumpconfig script:
+
+    ./dumpconfig
+
+Sample dumpconfig output:
+
+    Temporary directory: /sources/multilib
+    Sources directory: /sources
+
+### Build environment init
+
+Build directory should be created according to config file before running customization.
+
+To init environment run:
+
+    ./envinit
+
+## Build and installation
+
+After build environment initialization run install script:
 
     ./install
 
@@ -46,7 +106,7 @@ If this command don't print output that means that all packages was installed pr
 
 ## Cleanup
 
-If multilib installed properly then remove */opt/temptools* directory.
+If multilib installed properly then you can remove temporary directory.
 
 ## Default lib32 installation scripts
 
@@ -106,22 +166,52 @@ If you wish to add new package you can use followed templates according with a b
 
 After installing Multilib you can install various packages.
 
+### Wine
+
 To install WINE subsystem in ULFS just type:
 
     chimp install wine:lib32_amd64
 
-## Packages downloads
+### User mode Linux
 
-### ISL
+Copy or extract Linux kernel in some directory.
 
-Home page: [http://libisl.sourceforge.io/](http://libisl.sourceforge.io/)
+Configure it to run as application.
 
-Download: 
+    make ARCH=um defconfig
 
-* [https://libisl.sourceforge.io/isl-0.27.tar.xz](https://libisl.sourceforge.io/isl-0.27.tar.xz)
-* [https://umvirt.com/linux/downloads/0.2.3/packages/i/isl-0.27.tar.xz](https://umvirt.com/linux/downloads/0.2.3/packages/i/isl-0.27.tar.xz)
+Build Linux as application
 
-MD5 sum: 11ee9d335b227ea2e8579c4ba6e56138
+    make ARCH=um
+
+Check and run "linux" file in kernel directory. It should ouput an error message:
+
+    Kernel panic - not syncing: VFS: Unable to mount root fs on unknown-block(98,0)
+
+This message means that Linux was successfuly built as application but it can't run a disk system.
+
+Check User mode Linux documentation at user\_mode\_linux\_howto\_v2.rst file in Documentation/virt/uml Linux kernel directory.
+
+## Notes
+
+### Virtualization
+
+In some cases when 32-bit binaries are not mixed with 64-bit ones a virtualization technology is can be used as alternative to multilib.
+It's possible to run 32-bit environment in Virtual Machine (VM) inside 64-bit environment.
+
+### GCC extended version
+
+ULFS Multilib installs basic multilib version of GCC. Which equalent for basic nonmultilib version of GCC received after LFS build.
+
+Some packages installs an extended nonmultilib GCC version with additional languages which brokes multilib support.
+To prevent this gcc-multilib package should be installed before this packages. It blocks nonmultilib version install.
+
+### Why ULFS Multilib is installed after LFS install
+
+ULFS is built for all CPU architectures from one LFS recipe.
+MLFS usage is significantly increase complexity to support and conflicting with LFS.
+Each subsystem sholud have own objectives and responsibility area.
+Subsystems shouldn't have to conflict each others.
 
 ## Useful links
 

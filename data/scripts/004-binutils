@@ -1,0 +1,47 @@
+. config.sh
+cd $SRCROOT
+
+rm -rfv binutils-2.45
+
+tar -xf binutils-2.45.tar.xz
+
+cd binutils-2.45
+
+
+sed '6031s/$add_dir//' -i ltmain.sh
+
+mkdir -v build
+cd       build
+
+#forcing multilib support. skipped in MLFS
+
+../configure --prefix=/usr       \
+             --enable-gold       \
+             --enable-ld=default \
+             --enable-multilib   \
+             --enable-plugins    \
+             --enable-shared     \
+             --disable-werror    \
+             --with-system-zlib  \
+             --with-lib-path=/usr/lib:/lib:/usr/lib32
+             
+#../configure                   \
+#    --prefix=/usr              \
+#    --build=$(../config.guess) \
+#    --host=$LFS_TGT            \
+#    --disable-nls              \
+#    --enable-shared            \
+#    --enable-gprofng=no        \
+#    --disable-werror           \
+#    --enable-64-bit-bfd        \
+#    --enable-new-dtags         \
+#    --enable-multilib          \
+#    --enable-ld=default        \
+#    --enable-default-hash-style=gnu
+
+make
+
+make install
+
+rm -v /usr/lib/lib{bfd,ctf,ctf-nobfd,opcodes,sframe}.{a,la}
+
