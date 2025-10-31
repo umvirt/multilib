@@ -8,17 +8,19 @@ License: GPL
 
 ## Preface
 
-Multilib is subsystem which needed to run 32-bit x86 binaries in 64-bit amd64 environment:
+Multilib is subsystem which needed to run 32-bit x86 binaries in 64-bit amd64 Linux environment:
 
 * WINE
 * User mode Linux (UML)
 * Some compilers & build utils
 * Old GNU/Linux games and emulators
 
-LFS project is provide MLFS book, LFS book version with multilib support. 
+Binary GNU/Linux distributions are provide Multilib in proper packages.
+
+LFS project is provide MLFS book. MLFS is LFS book version with multilib support. 
 It should be built from zero as alternative to LFS.
 
-Enabling multilib support for every amd64 system is redundant. In many cases it not needed.
+Enabling Multilib support for every amd64 system is redundant. In many cases it not needed.
 It can became a heavy ballast which eats disk space and which makes backups bigger.
 
 ## About
@@ -50,15 +52,29 @@ If you get such error then fix build scripts manually.
 ### Downloading ULFS Multilib Builder
 
 Select a directory for ULFS Multilib Builder. 
-To reduce impact on root filesystem it's recomened to place ULFS Multilib installer on additional partition.
+To reduce impact on root filesystem it's recomended to place ULFS Multilib installer on additional partition.
 
 Use *Git* to download ULFS Multilib builder and place it on multilib-builder directory:
 
     git clone https://gitlab.com/Umvirt/multilib multilib-builder
 
+Select proper branch:
+
+    git checkout 0.2.4
+
 After downloading via *Git* you have to make some directories:
 
     make dirs
+
+### Source packages
+
+Get LFS book source packages and put them in some directory.
+A path to this directory is should be stored in $SRCROOT config file variable.
+Like in case with multilib-builder directory it's recomended to use an additional partition.
+
+Also this directory will be used as build directory.
+
+This directory should have at least 10 GB free space.
 
 ### Configuration
 
@@ -106,7 +122,9 @@ If this command don't print output that means that all packages was installed pr
 
 ## Cleanup
 
-If multilib installed properly then you can remove temporary directory.
+If multilib installed properly then you can remove temporary directory and contents of sources directory.
+
+For debugging purposes in future it's recommended to copy contents of build/log directory to /var/log/multilib directory. 
 
 ## Default lib32 installation scripts
 
