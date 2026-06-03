@@ -40,7 +40,7 @@ mlist=m64,m32
     --target=$LFS_TGT           \
     --prefix=$LFS/tools         \
     --with-slibdir=$LFS/tools/lib     \
-    --with-glibc-version=2.42   \
+    --with-glibc-version=2.43   \
     --with-sysroot=$LFS/tools         \
     --with-slibdir=$LFS/tools/lib     \
     --with-newlib               \

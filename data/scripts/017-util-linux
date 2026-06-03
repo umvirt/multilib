@@ -1,7 +1,7 @@
 . config.sh
 cd $SRCROOT
-tar -xf util-linux-2.41.1.tar.xz
-cd util-linux-2.41.1
+tar -xf util-linux-2.41.3.tar.xz
+cd util-linux-2.41.3
 
 mv /usr/bin/ncursesw6-config{,.tmp}
 
@@ -11,7 +11,7 @@ CC="gcc -m32" \
             --libdir=/usr/lib32      \
             --runstatedir=/run       \
             --sbindir=/usr/sbin      \
-            --docdir=/usr/share/doc/util-linux-2.41.1 \
+            --docdir=/usr/share/doc/util-linux-2.41.3 \
             --disable-chfn-chsh      \
             --disable-login          \
             --disable-nologin        \

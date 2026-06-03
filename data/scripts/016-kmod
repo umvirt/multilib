@@ -3,19 +3,30 @@ cd $SRCROOT
 tar -xf kmod-34.2.tar.xz
 cd kmod-34.2
 
-CC="gcc -m32" ./configure --host=$HOST \
-    --prefix=/usr         \
-    --bindir=/bin         \
-    --libdir=/usr/lib32   \
-    --sysconfdir=/etc     \
-    --with-xz             \
-    --with-zlib           \
-    --with-zstd           \
-    --with-rootlibdir=/usr/lib32 \
-    --disable-manpages
+#CC="gcc -m32" ./configure --host=$HOST \
+#    --prefix=/usr         \
+#    --bindir=/bin         \
+#    --libdir=/usr/lib32   \
+#    --sysconfdir=/etc     \
+#    --with-xz             \
+#    --with-zlib           \
+#    --with-zstd           \
+#    --with-rootlibdir=/usr/lib32 \
+#    --disable-manpages
 
-make
+meson setup --prefix=/usr       \
+            --buildtype=release \
+            --cross-file=lib32  \
+            -D manpages=false   \
+            ..
 
-make DESTDIR=$PWD/DESTDIR install
+#make
+
+ninja
+
+#make DESTDIR=$PWD/DESTDIR install
+#cp -Rv DESTDIR/usr/lib32/* /usr/lib32
+
+DESTDIR=$PWD/DESTDIR ninja install
 cp -Rv DESTDIR/usr/lib32/* /usr/lib32
-
+rm -rf DESTDIR

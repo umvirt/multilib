@@ -1,9 +1,9 @@
 . config.sh
 cd $SRCROOT
-tar -xf glibc-2.42.tar.xz
-cd glibc-2.42
+tar -xf glibc-2.43.tar.xz
+cd glibc-2.43
 
-patch -Np1 -i ../glibc-2.42-fhs-1.patch
+patch -Np1 -i ../glibc-fhs-1.patch
 
 mkdir -v build64
 cd       build64

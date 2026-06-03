@@ -1,7 +1,7 @@
 . config.sh
 cd $SRCROOT
-tar -xf ncurses-6.5-20250809.tgz
-cd ncurses-6.5-20250809
+tar -xf ncurses-6.6.tar.gz
+cd ncurses-6.6
 
 
 sed -i '/LIBTOOL_INSTALL/d' c++/Makefile.in

@@ -1,7 +1,7 @@
 . config.sh
 cd $SRCROOT
-tar -xf xz-5.8.1.tar.xz
-cd xz-5.8.1
+tar -xf xz-5.8.2.tar.xz
+cd xz-5.8.2
 
 CC="gcc -m32" ./configure --host=$HOST \
     --prefix=/usr \

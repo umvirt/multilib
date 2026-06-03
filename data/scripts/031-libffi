@@ -9,6 +9,7 @@ PKG_CONFIG_PATH="/usr/lib32/pkgconfig" \
     --disable-exec-static-tramp \
     --disable-multi-os-directory \
     --disable-static \
+    --with-gcc-arch=i686 \
     --enable-pax_emutramp \
     --libdir=/usr/lib32 \
     --prefix=/usr 

@@ -1,9 +1,9 @@
 . config.sh
 cd $SRCROOT
-tar -xf zlib-1.3.1.tar.gz
-cd zlib-1.3.1
+tar -xf zlib-1.3.2.tar.gz
+cd zlib-1.3.2
 
-CC="gcc -m32" ./configure \
+CFLAGS+=" -m32" CXXFLAGS+=" -m32" ./configure \
     --prefix=/usr --libdir=/usr/lib32
 
 

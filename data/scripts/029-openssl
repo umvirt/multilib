@@ -1,13 +1,13 @@
 . config.sh
 cd $SRCROOT
-tar -xf openssl-3.5.2.tar.gz
-cd openssl-3.5.2
+tar -xf openssl-3.6.1.tar.gz
+cd openssl-3.6.1
 
 CC="gcc -m32" CXX="g++ -m32" \
 PKG_CONFIG_PATH="/usr/lib32/pkgconfig" \
 ./Configure --prefix=/usr --libdir=/usr/lib32 \
 --openssldir=/etc/ssl \
-shared enable-ktls linux-elf
+shared zlib-dynamic linux-x86
 
 make
 
