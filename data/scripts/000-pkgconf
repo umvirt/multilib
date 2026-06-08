@@ -1,0 +1,21 @@
+ln -sv pkgconf /usr/bin/i686-pc-linux-gnu-pkg-config
+ln -sv pkgconf /usr/bin/x86_64-pc-linux-gnu-pkg-config
+
+mkdir -pv /usr/share/pkgconfig/personality.d
+
+cat > /usr/share/pkgconfig/personality.d/i686-pc-linux-gnu.personality << EOF
+Triplet: i686-pc-linux-gnu
+SysrootDir: /
+DefaultSearchPaths: /usr/lib32/pkgconfig:/usr/share/pkgconfig
+SystemIncludePaths: /usr/include
+SystemLibraryPaths: /usr/lib32
+EOF
+
+cat > /usr/share/pkgconfig/personality.d/x86_64-pc-linux-gnu.personality << EOF
+Triplet: x86_64-pc-linux-gnu
+SysrootDir: /
+DefaultSearchPaths: /usr/lib/pkgconfig:/usr/share/pkgconfig
+SystemIncludePaths: /usr/include
+SystemLibraryPaths: /usr/lib
+EOF
+

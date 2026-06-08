@@ -14,6 +14,9 @@ cd kmod-34.2
 #    --with-rootlibdir=/usr/lib32 \
 #    --disable-manpages
 
+mkdir build
+cd build
+
 meson setup --prefix=/usr       \
             --buildtype=release \
             --cross-file=lib32  \
