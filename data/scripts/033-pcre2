@@ -1,0 +1,22 @@
+. config.sh
+cd $SRCROOT
+tar -xf pcre2-10.47.tar.bz2
+cd pcre2-10.47
+
+CC="gcc -m32" CXX="g++ -m32" \
+PKG_CONFIG_PATH="/usr/lib32/pkgconfig" \
+./configure --prefix=/usr                       \
+            --libdir /usr/lib32                 \
+            --libexecdir /usr/lib32             \
+            --enable-unicode                    \
+            --enable-jit                        \
+            --enable-pcre2-16                   \
+            --enable-pcre2-32                   \
+            --disable-pcre2grep-libz             \
+            --disable-pcre2grep-libbz2           \
+            --disable-pcre2test-libreadline
+
+make
+
+make DESTDIR=$PWD/DESTDIR install
+cp -Rv DESTDIR/usr/lib32/* /usr/lib32
