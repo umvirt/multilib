@@ -14,6 +14,8 @@ mv -v gmp-6.3.0 gmp
 tar -xf ../mpc-1.3.1.tar.gz
 mv -v mpc-1.3.1 mpc
 
+sed -i 's/char [*]q/const &/' libgomp/affinity-fmt.c
+
 sed -e '/m64=/s/lib64/lib/' \
     -e '/m32=/s/m32=.*/m32=..\/lib32$(call if_multiarch,:i386-linux-gnu)/' \
     -i.orig gcc/config/i386/t-linux64
@@ -31,7 +33,6 @@ cd       build
              --enable-languages=c,c++ \
              --enable-multilib        \
              --disable-bootstrap      \
-             --disable-libgomp        \
              --with-system-zlib
 
 
